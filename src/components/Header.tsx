@@ -34,10 +34,10 @@ export const Header = () => {
             <Button variant="ghost" size="icon" className="hidden sm:flex">
               <Search className="h-4 w-4" />
             </Button>
-            <Button variant="outline" className="hidden sm:inline-flex">
+            <Button variant="outline" className="hidden sm:inline-flex" onClick={() => window.location.href = '/auth'}>
               Sign In
             </Button>
-            <Button variant="hero" className="hidden sm:inline-flex">
+            <Button variant="hero" className="hidden sm:inline-flex" onClick={() => window.location.href = '/auth'}>
               Join Now
             </Button>
             <Button
@@ -66,10 +66,10 @@ export const Header = () => {
               About
             </a>
             <div className="pt-4 space-y-2">
-              <Button variant="outline" className="w-full">
+              <Button variant="outline" className="w-full" onClick={() => window.location.href = '/auth'}>
                 Sign In
               </Button>
-              <Button variant="hero" className="w-full">
+              <Button variant="hero" className="w-full" onClick={() => window.location.href = '/auth'}>
                 Join Now
               </Button>
             </div>
