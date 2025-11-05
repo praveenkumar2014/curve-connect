@@ -22,9 +22,8 @@ const Models = () => {
   const fetchModels = async () => {
     try {
       const { data, error } = await supabase
-        .from('models')
-        .select('*, profiles(*)')
-        .eq('verified', true)
+        .from('public_model_profiles')
+        .select('*')
         .order('rating', { ascending: false });
 
       if (error) throw error;
@@ -37,8 +36,8 @@ const Models = () => {
   };
 
   const filteredModels = models.filter(model => {
-    const matchesSearch = model.profiles?.full_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                          model.profiles?.location?.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSearch = model.full_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                          model.location?.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = categoryFilter === 'all' || model.category === categoryFilter;
     return matchesSearch && matchesCategory;
   });
@@ -91,13 +90,13 @@ const Models = () => {
                   <div className="aspect-[3/4] bg-gradient-to-br from-accent/20 to-primary/20 relative overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                     <div className="absolute bottom-4 left-4 right-4 text-white transform translate-y-4 group-hover:translate-y-0 transition-transform">
-                      <h3 className="text-xl font-bold">{model.profiles?.full_name}</h3>
+                      <h3 className="text-xl font-bold">{model.full_name}</h3>
                       <p className="text-sm">{model.category} • {model.height}cm</p>
                     </div>
                   </div>
                   <div className="p-4">
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-muted-foreground">{model.profiles?.location}</span>
+                      <span className="text-sm text-muted-foreground">{model.location}</span>
                       <span className="text-sm font-medium">★ {model.rating || '5.0'}</span>
                     </div>
                   </div>

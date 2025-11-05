@@ -400,7 +400,24 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      public_model_profiles: {
+        Row: {
+          avatar_url: string | null
+          bio: string | null
+          category: string | null
+          created_at: string | null
+          experience_years: number | null
+          full_name: string | null
+          height: number | null
+          id: string | null
+          location: string | null
+          measurements: string | null
+          portfolio_url: string | null
+          rating: number | null
+          verified: boolean | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       get_user_role: {
