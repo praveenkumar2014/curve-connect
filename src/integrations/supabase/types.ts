@@ -44,6 +44,181 @@ export type Database = {
         }
         Relationships: []
       }
+      bookings: {
+        Row: {
+          agency_id: string | null
+          booking_date: string
+          campaign_id: string | null
+          casting_call_id: string | null
+          created_at: string | null
+          id: string
+          model_id: string | null
+          notes: string | null
+          status: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          agency_id?: string | null
+          booking_date: string
+          campaign_id?: string | null
+          casting_call_id?: string | null
+          created_at?: string | null
+          id?: string
+          model_id?: string | null
+          notes?: string | null
+          status?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          agency_id?: string | null
+          booking_date?: string
+          campaign_id?: string | null
+          casting_call_id?: string | null
+          created_at?: string | null
+          id?: string
+          model_id?: string | null
+          notes?: string | null
+          status?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bookings_agency_id_fkey"
+            columns: ["agency_id"]
+            isOneToOne: false
+            referencedRelation: "agencies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "bookings_campaign_id_fkey"
+            columns: ["campaign_id"]
+            isOneToOne: false
+            referencedRelation: "campaigns"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "bookings_casting_call_id_fkey"
+            columns: ["casting_call_id"]
+            isOneToOne: false
+            referencedRelation: "casting_calls"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "bookings_model_id_fkey"
+            columns: ["model_id"]
+            isOneToOne: false
+            referencedRelation: "models"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      campaigns: {
+        Row: {
+          brand_name: string
+          budget_range: string | null
+          campaign_type: string | null
+          created_at: string | null
+          created_by: string | null
+          description: string | null
+          end_date: string | null
+          id: string
+          location: string | null
+          requirements: Json | null
+          start_date: string | null
+          status: string | null
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          brand_name: string
+          budget_range?: string | null
+          campaign_type?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          description?: string | null
+          end_date?: string | null
+          id?: string
+          location?: string | null
+          requirements?: Json | null
+          start_date?: string | null
+          status?: string | null
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          brand_name?: string
+          budget_range?: string | null
+          campaign_type?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          description?: string | null
+          end_date?: string | null
+          id?: string
+          location?: string | null
+          requirements?: Json | null
+          start_date?: string | null
+          status?: string | null
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      casting_calls: {
+        Row: {
+          agency_id: string | null
+          casting_date: string | null
+          casting_director: string
+          compensation: string | null
+          created_at: string | null
+          description: string | null
+          id: string
+          location: string | null
+          project_type: string | null
+          requirements: Json | null
+          status: string | null
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          agency_id?: string | null
+          casting_date?: string | null
+          casting_director: string
+          compensation?: string | null
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          location?: string | null
+          project_type?: string | null
+          requirements?: Json | null
+          status?: string | null
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          agency_id?: string | null
+          casting_date?: string | null
+          casting_director?: string
+          compensation?: string | null
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          location?: string | null
+          project_type?: string | null
+          requirements?: Json | null
+          status?: string | null
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "casting_calls_agency_id_fkey"
+            columns: ["agency_id"]
+            isOneToOne: false
+            referencedRelation: "agencies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       models: {
         Row: {
           category: string | null
@@ -124,6 +299,47 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      portfolio_images: {
+        Row: {
+          category: string | null
+          created_at: string | null
+          id: string
+          image_url: string
+          is_featured: boolean | null
+          model_id: string | null
+          order_index: number | null
+          title: string | null
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string | null
+          id?: string
+          image_url: string
+          is_featured?: boolean | null
+          model_id?: string | null
+          order_index?: number | null
+          title?: string | null
+        }
+        Update: {
+          category?: string | null
+          created_at?: string | null
+          id?: string
+          image_url?: string
+          is_featured?: boolean | null
+          model_id?: string | null
+          order_index?: number | null
+          title?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "portfolio_images_model_id_fkey"
+            columns: ["model_id"]
+            isOneToOne: false
+            referencedRelation: "models"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       profiles: {
         Row: {
