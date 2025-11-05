@@ -119,13 +119,196 @@ All colors MUST be HSL.
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Momo Trust Display', 'Playfair Display', serif;
     font-weight: 600;
     letter-spacing: -0.02em;
   }
 }
 
+/* Advanced Animations & Effects */
 @layer utilities {
+  /* Gradient Animations */
+  .animate-gradient {
+    background-size: 200% 200%;
+    animation: gradient 8s ease infinite;
+  }
+  
+  @keyframes gradient {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  /* Shimmer Effect */
+  .animate-shimmer {
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      hsl(var(--accent) / 0.2) 50%,
+      transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+  
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  /* Float Animation */
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  /* Pulse Glow */
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+  
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 20px hsl(var(--accent) / 0.3);
+    }
+    50% {
+      box-shadow: 0 0 40px hsl(var(--accent) / 0.6);
+    }
+  }
+
+  /* Slide In Animations */
+  .animate-slide-in-left {
+    animation: slideInLeft 0.8s ease-out;
+  }
+  
+  .animate-slide-in-right {
+    animation: slideInRight 0.8s ease-out;
+  }
+  
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  /* Bounce In */
+  .animate-bounce-in {
+    animation: bounceIn 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+  
+  @keyframes bounceIn {
+    0% {
+      opacity: 0;
+      transform: scale(0.3);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+    70% {
+      transform: scale(0.9);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  /* Rotate 3D */
+  .animate-rotate-3d {
+    animation: rotate3d 20s linear infinite;
+  }
+  
+  @keyframes rotate3d {
+    0% {
+      transform: rotateY(0deg) rotateX(0deg);
+    }
+    100% {
+      transform: rotateY(360deg) rotateX(360deg);
+    }
+  }
+
+  /* Background Patterns */
+  .bg-dots {
+    background-image: radial-gradient(circle, hsl(var(--muted-foreground) / 0.1) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  
+  .bg-grid {
+    background-image: 
+      linear-gradient(hsl(var(--border)) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--border)) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+
+  .bg-radial-gradient {
+    background: radial-gradient(
+      circle at center,
+      hsl(var(--accent) / 0.1) 0%,
+      transparent 70%
+    );
+  }
+
+  /* Glass Morphism */
+  .glass {
+    background: hsl(var(--background) / 0.7);
+    backdrop-filter: blur(12px) saturate(180%);
+    border: 1px solid hsl(var(--border) / 0.3);
+  }
+
+  /* Gradient Text */
+  .text-gradient {
+    background: linear-gradient(135deg, hsl(var(--accent)) 0%, hsl(var(--gold-light)) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Hover Effects */
+  .hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .hover-lift:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-elegant);
+  }
+
+  .hover-glow:hover {
+    box-shadow: var(--shadow-glow);
+    transition: box-shadow 0.3s ease;
+  }
+
   .animate-fade-in {
     animation: fadeIn 0.8s ease-in-out;
   }
