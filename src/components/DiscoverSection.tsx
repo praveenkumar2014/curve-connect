@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Link } from "react-router-dom";
 import { ArrowRight, Search, Zap, Users, BarChart3 } from "lucide-react";
 
 const features = [
@@ -74,13 +75,17 @@ export const DiscoverSection = () => {
                   Join thousands of agencies and brands already using GSMODELING to find their perfect matches.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3">
-                  <Button variant="gold" size="lg" className="group">
-                    Start Free Trial
-                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                  </Button>
-                  <Button variant="outline" size="lg">
-                    Schedule Demo
-                  </Button>
+                  <Link to="/auth">
+                    <Button variant="gold" size="lg" className="group hover-glow">
+                      Start Free Trial
+                      <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    </Button>
+                  </Link>
+                  <Link to="/auth">
+                    <Button variant="outline" size="lg">
+                      Schedule Demo
+                    </Button>
+                  </Link>
                 </div>
               </div>
               
