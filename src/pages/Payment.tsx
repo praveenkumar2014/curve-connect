@@ -62,32 +62,35 @@ const Payment = () => {
       });
 
       setLoading(true);
-      const txnId = `TXN${Date.now()}`;
-      setTransactionId(txnId);
 
+      // Generate QR code if UPI payment
       if (['upi', 'phonepe', 'gpay'].includes(paymentMethod)) {
         const qr = await generateUPIQR(parsedAmount);
         setQrCodeUrl(qr);
       }
 
-      // Create payment record
-      const { error } = await supabase.from('payments').insert({
-        user_id: user.id,
-        amount: parsedAmount,
-        currency: 'INR',
-        payment_method: paymentMethod,
-        payment_status: 'pending',
-        transaction_id: txnId,
-        qr_code_url: ['upi', 'phonepe', 'gpay'].includes(paymentMethod) ? qrCodeUrl : null,
+      // Call server-side payment initiation for validation
+      const { data, error } = await supabase.functions.invoke('initiate-payment', {
+        body: {
+          amount: parsedAmount,
+          paymentMethod: paymentMethod,
+        }
       });
 
       if (error) throw error;
 
-      toast.success('Payment initiated successfully!');
+      if (data?.success) {
+        setTransactionId(data.payment.transaction_id);
+        toast.success('Payment initiated successfully!');
+      } else {
+        throw new Error(data?.error || 'Payment initiation failed');
+      }
       
     } catch (error) {
       if (error instanceof z.ZodError) {
         toast.error(error.errors[0].message);
+      } else if (error instanceof Error) {
+        toast.error(error.message);
       } else {
         toast.error('Failed to initiate payment');
       }
