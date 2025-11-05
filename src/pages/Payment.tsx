@@ -8,7 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import { CreditCard, Smartphone, QrCode, ArrowLeft, Loader2 } from 'lucide-react';
+import { CreditCard, Smartphone, QrCode, ArrowLeft, Loader2, Wallet } from 'lucide-react';
 import QRCode from 'qrcode';
 import { z } from 'zod';
 
@@ -20,7 +20,7 @@ const paymentSchema = z.object({
 const Payment = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
-  const [amount, setAmount] = useState('');
+  const [amount, setAmount] = useState('999');
   const [paymentMethod, setPaymentMethod] = useState('');
   const [loading, setLoading] = useState(false);
   const [qrCodeUrl, setQrCodeUrl] = useState('');
@@ -28,9 +28,9 @@ const Payment = () => {
 
   const generateUPIQR = async (amt: number) => {
     // UPI Payment URL format
-    const upiId = 'gsmodeling@ybl'; // Your UPI ID (masked)
+    const upiId = 'gsmodeling@paytm'; // Your UPI ID
     const name = 'GSMODELING';
-    const upiUrl = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(name)}&am=${amt}&cu=INR&tn=${encodeURIComponent('GSMODELING Payment')}`;
+    const upiUrl = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(name)}&am=${amt}&cu=INR&tn=${encodeURIComponent('GSMODELING Registration Fee')}`;
     
     try {
       const qr = await QRCode.toDataURL(upiUrl, {
@@ -65,7 +65,7 @@ const Payment = () => {
       const txnId = `TXN${Date.now()}`;
       setTransactionId(txnId);
 
-      if (paymentMethod === 'upi' || paymentMethod === 'phonepe' || paymentMethod === 'gpay') {
+      if (['upi', 'phonepe', 'gpay'].includes(paymentMethod)) {
         const qr = await generateUPIQR(parsedAmount);
         setQrCodeUrl(qr);
       }
@@ -78,7 +78,7 @@ const Payment = () => {
         payment_method: paymentMethod,
         payment_status: 'pending',
         transaction_id: txnId,
-        qr_code_url: paymentMethod.includes('upi') || paymentMethod.includes('phonepe') || paymentMethod.includes('gpay') ? qrCodeUrl : null,
+        qr_code_url: ['upi', 'phonepe', 'gpay'].includes(paymentMethod) ? qrCodeUrl : null,
       });
 
       if (error) throw error;
@@ -98,7 +98,7 @@ const Payment = () => {
 
   return (
     <div className="min-h-screen bg-secondary/30 py-12">
-      <div className="container max-w-4xl px-6 lg:px-12">
+      <div className="container max-w-5xl px-6 lg:px-12">
         <Button
           variant="ghost"
           onClick={() => navigate(-1)}
@@ -108,10 +108,15 @@ const Payment = () => {
           Back
         </Button>
 
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold mb-3">GSMODELING Registration</h1>
+          <p className="text-xl text-muted-foreground">Annual Registration Fee - ₹999</p>
+        </div>
+
         <div className="grid lg:grid-cols-2 gap-8">
           {/* Payment Form */}
           <Card className="p-8">
-            <h1 className="text-3xl font-bold mb-6">Make Payment</h1>
+            <h2 className="text-2xl font-bold mb-6">Payment Details</h2>
             
             <form onSubmit={handlePayment} className="space-y-6">
               <div className="space-y-2">
@@ -119,43 +124,56 @@ const Payment = () => {
                 <Input
                   id="amount"
                   type="number"
-                  placeholder="1000"
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
                   min="1"
                   step="0.01"
+                  className="text-lg font-semibold"
                 />
+                <p className="text-sm text-muted-foreground">Standard registration fee for 1 year</p>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="method">Payment Method</Label>
+                <Label htmlFor="method">Select Payment Method</Label>
                 <Select value={paymentMethod} onValueChange={setPaymentMethod}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select payment method" />
+                  <SelectTrigger className="h-12">
+                    <SelectValue placeholder="Choose payment method" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="upi">
-                      <div className="flex items-center gap-2">
-                        <QrCode className="h-4 w-4" />
-                        UPI
+                      <div className="flex items-center gap-3 py-1">
+                        <QrCode className="h-5 w-5 text-accent" />
+                        <span className="font-medium">UPI</span>
                       </div>
                     </SelectItem>
                     <SelectItem value="phonepe">
-                      <div className="flex items-center gap-2">
-                        <Smartphone className="h-4 w-4" />
-                        PhonePe
+                      <div className="flex items-center gap-3 py-1">
+                        <Wallet className="h-5 w-5 text-accent" />
+                        <span className="font-medium">PhonePe</span>
                       </div>
                     </SelectItem>
                     <SelectItem value="gpay">
-                      <div className="flex items-center gap-2">
-                        <Smartphone className="h-4 w-4" />
-                        Google Pay
+                      <div className="flex items-center gap-3 py-1">
+                        <Smartphone className="h-5 w-5 text-accent" />
+                        <span className="font-medium">Google Pay</span>
+                      </div>
+                    </SelectItem>
+                    <SelectItem value="razorpay">
+                      <div className="flex items-center gap-3 py-1">
+                        <CreditCard className="h-5 w-5 text-accent" />
+                        <span className="font-medium">Razorpay (Card/UPI/Netbanking)</span>
+                      </div>
+                    </SelectItem>
+                    <SelectItem value="cashfree">
+                      <div className="flex items-center gap-3 py-1">
+                        <CreditCard className="h-5 w-5 text-accent" />
+                        <span className="font-medium">Cashfree (Card/Wallet)</span>
                       </div>
                     </SelectItem>
                     <SelectItem value="card">
-                      <div className="flex items-center gap-2">
-                        <CreditCard className="h-4 w-4" />
-                        Credit/Debit Card
+                      <div className="flex items-center gap-3 py-1">
+                        <CreditCard className="h-5 w-5 text-accent" />
+                        <span className="font-medium">Credit/Debit Card</span>
                       </div>
                     </SelectItem>
                   </SelectContent>
@@ -172,17 +190,18 @@ const Payment = () => {
                 {loading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Processing...
+                    Processing Payment...
                   </>
                 ) : (
-                  'Continue to Payment'
+                  'Proceed to Pay ₹' + amount
                 )}
               </Button>
             </form>
 
-            <div className="mt-6 p-4 bg-muted rounded-lg">
-              <p className="text-sm text-muted-foreground">
-                🔒 Secure payment processing. Your payment information is encrypted and secure.
+            <div className="mt-6 p-4 bg-accent/10 border border-accent/20 rounded-lg">
+              <p className="text-sm text-foreground font-medium mb-2">✓ Secure Payment</p>
+              <p className="text-xs text-muted-foreground">
+                Your payment information is encrypted and secure. We accept all major payment methods.
               </p>
             </div>
           </Card>
@@ -191,47 +210,76 @@ const Payment = () => {
           <Card className="p-8">
             {qrCodeUrl ? (
               <div className="text-center">
-                <h2 className="text-2xl font-bold mb-4">Scan to Pay</h2>
+                <h2 className="text-2xl font-bold mb-4">Scan QR Code to Pay</h2>
                 <p className="text-muted-foreground mb-6">
-                  Scan this QR code with your {paymentMethod.toUpperCase()} app
+                  Use your {paymentMethod.toUpperCase()} app to scan and complete payment
                 </p>
                 
-                <div className="bg-white p-6 rounded-lg inline-block mb-6">
+                <div className="bg-white p-6 rounded-xl inline-block mb-6 shadow-lg">
                   <img src={qrCodeUrl} alt="Payment QR Code" className="w-full max-w-xs" />
                 </div>
 
-                <div className="space-y-2 text-sm">
-                  <p className="font-semibold">Amount: ₹{amount}</p>
-                  <p className="text-muted-foreground">Transaction ID: {transactionId}</p>
+                <div className="space-y-3 text-left bg-muted p-4 rounded-lg">
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Amount:</span>
+                    <span className="font-bold text-lg">₹{amount}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Transaction ID:</span>
+                    <span className="font-mono text-sm">{transactionId}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Method:</span>
+                    <span className="font-medium uppercase">{paymentMethod}</span>
+                  </div>
                 </div>
 
                 <div className="mt-6 p-4 bg-accent/10 rounded-lg">
-                  <p className="text-sm">
-                    After completing payment, it may take a few minutes to reflect in your account.
+                  <p className="text-sm text-muted-foreground">
+                    ⏱️ Payment will be verified within 5-10 minutes. You'll receive confirmation via email.
                   </p>
                 </div>
               </div>
             ) : (
               <div className="text-center py-12">
-                <QrCode className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-                <h2 className="text-xl font-semibold mb-2">Select Payment Method</h2>
-                <p className="text-muted-foreground">
-                  Choose your preferred payment method and enter the amount to continue
+                <QrCode className="h-20 w-20 text-accent mx-auto mb-6" />
+                <h2 className="text-2xl font-semibold mb-3">Choose Payment Method</h2>
+                <p className="text-muted-foreground mb-8">
+                  Select your preferred payment method to continue with registration
                 </p>
                 
-                <div className="mt-8 space-y-3">
-                  <div className="flex items-center gap-3 p-3 bg-muted rounded-lg">
-                    <QrCode className="h-5 w-5 text-accent" />
-                    <span className="text-sm">Instant UPI payments</span>
+                <div className="space-y-3 text-left">
+                  <div className="flex items-center gap-3 p-4 bg-muted rounded-lg border-2 border-transparent hover:border-accent transition-colors">
+                    <QrCode className="h-6 w-6 text-accent flex-shrink-0" />
+                    <div>
+                      <p className="font-medium">UPI Payment</p>
+                      <p className="text-sm text-muted-foreground">Instant payment via QR code</p>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-3 p-3 bg-muted rounded-lg">
-                    <Smartphone className="h-5 w-5 text-accent" />
-                    <span className="text-sm">PhonePe & Google Pay</span>
+                  <div className="flex items-center gap-3 p-4 bg-muted rounded-lg border-2 border-transparent hover:border-accent transition-colors">
+                    <Smartphone className="h-6 w-6 text-accent flex-shrink-0" />
+                    <div>
+                      <p className="font-medium">PhonePe & Google Pay</p>
+                      <p className="text-sm text-muted-foreground">Quick mobile payments</p>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-3 p-3 bg-muted rounded-lg">
-                    <CreditCard className="h-5 w-5 text-accent" />
-                    <span className="text-sm">Card payments</span>
+                  <div className="flex items-center gap-3 p-4 bg-muted rounded-lg border-2 border-transparent hover:border-accent transition-colors">
+                    <CreditCard className="h-6 w-6 text-accent flex-shrink-0" />
+                    <div>
+                      <p className="font-medium">Cards & Gateways</p>
+                      <p className="text-sm text-muted-foreground">Razorpay, Cashfree, Card payments</p>
+                    </div>
                   </div>
+                </div>
+
+                <div className="mt-8 p-4 bg-accent/10 rounded-lg">
+                  <p className="text-sm font-medium mb-2">What you get:</p>
+                  <ul className="text-sm text-muted-foreground space-y-1 text-left">
+                    <li>✓ Full platform access for 1 year</li>
+                    <li>✓ Unlimited portfolio uploads</li>
+                    <li>✓ AI-powered profile matching</li>
+                    <li>✓ Priority support</li>
+                  </ul>
                 </div>
               </div>
             )}

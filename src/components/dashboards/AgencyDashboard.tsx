@@ -1,10 +1,12 @@
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { LogOut, Users, Briefcase, Calendar, Search } from 'lucide-react';
+import { LogOut, Users, Briefcase, Calendar, Search, Plus } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export const AgencyDashboard = () => {
   const { signOut } = useAuth();
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen bg-secondary/30">
@@ -12,7 +14,7 @@ export const AgencyDashboard = () => {
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-4xl font-bold mb-2">Agency Dashboard</h1>
-            <p className="text-muted-foreground">Manage your roster and campaigns</p>
+            <p className="text-muted-foreground">Welcome to GSMODELING - Manage your roster and campaigns</p>
           </div>
           <Button variant="outline" onClick={signOut}>
             <LogOut className="mr-2 h-4 w-4" />
@@ -74,7 +76,7 @@ export const AgencyDashboard = () => {
           <Card className="p-6">
             <h2 className="text-xl font-semibold mb-4">Quick Actions</h2>
             <div className="space-y-2">
-              <Button variant="gold" className="w-full justify-start">
+              <Button variant="gold" className="w-full justify-start" onClick={() => navigate('/models')}>
                 <Search className="mr-2 h-4 w-4" />
                 Discover New Talent
               </Button>
@@ -82,16 +84,24 @@ export const AgencyDashboard = () => {
                 <Users className="mr-2 h-4 w-4" />
                 Manage Roster
               </Button>
-              <Button variant="outline" className="w-full justify-start">
+              <Button variant="outline" className="w-full justify-start" onClick={() => navigate('/campaigns')}>
                 <Briefcase className="mr-2 h-4 w-4" />
-                Create Campaign
+                View Campaigns
+              </Button>
+              <Button 
+                variant="outline" 
+                className="w-full justify-start"
+                onClick={() => navigate('/payment')}
+              >
+                <Plus className="mr-2 h-4 w-4" />
+                Upgrade Plan (₹999/year)
               </Button>
             </div>
           </Card>
 
           <Card className="p-6">
             <h2 className="text-xl font-semibold mb-4">Recent Activity</h2>
-            <p className="text-muted-foreground">No recent activity. Start managing your talent!</p>
+            <p className="text-muted-foreground">No recent activity. Start managing your talent on GSMODELING!</p>
           </Card>
         </div>
       </div>
