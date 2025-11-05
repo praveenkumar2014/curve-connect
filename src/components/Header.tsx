@@ -17,19 +17,78 @@ export const Header = () => {
               <span className="text-2xl font-bold tracking-tight font-display">GSMODELING</span>
             </Link>
             
-            <nav className="hidden md:flex items-center gap-8">
-              <Link to="/models" className="text-sm hover:text-accent transition-colors">
-                Models
-              </Link>
+            <nav className="hidden lg:flex items-center gap-8">
+              <div className="relative group">
+                <Link to="/models" className="text-sm hover:text-accent transition-colors flex items-center gap-1">
+                  Discover
+                </Link>
+                <div className="absolute top-full left-0 mt-2 w-48 glass rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                  <div className="py-2">
+                    <Link to="/models" className="block px-4 py-2 text-sm hover:bg-accent/10 transition-colors">
+                      All Models
+                    </Link>
+                    <Link to="/models/new-faces" className="block px-4 py-2 text-sm hover:bg-accent/10 transition-colors">
+                      New Faces
+                    </Link>
+                    <Link to="/models/top-models" className="block px-4 py-2 text-sm hover:bg-accent/10 transition-colors">
+                      Top Models
+                    </Link>
+                    <Link to="/models/fashion" className="block px-4 py-2 text-sm hover:bg-accent/10 transition-colors">
+                      Fashion
+                    </Link>
+                    <Link to="/models/commercial" className="block px-4 py-2 text-sm hover:bg-accent/10 transition-colors">
+                      Commercial
+                    </Link>
+                    <Link to="/models/editorial" className="block px-4 py-2 text-sm hover:bg-accent/10 transition-colors">
+                      Editorial
+                    </Link>
+                  </div>
+                </div>
+              </div>
+              
               <Link to="/agencies" className="text-sm hover:text-accent transition-colors">
                 Agencies
               </Link>
-              <Link to="/campaigns" className="text-sm hover:text-accent transition-colors">
-                Campaigns
-              </Link>
+              
               <Link to="/casting-calls" className="text-sm hover:text-accent transition-colors">
                 Casting
               </Link>
+              
+              <Link to="/campaigns" className="text-sm hover:text-accent transition-colors">
+                Campaigns
+              </Link>
+
+              <div className="relative group">
+                <Link to="/services/portfolio" className="text-sm hover:text-accent transition-colors flex items-center gap-1">
+                  Services
+                </Link>
+                <div className="absolute top-full left-0 mt-2 w-48 glass rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                  <div className="py-2">
+                    <Link to="/services/portfolio" className="block px-4 py-2 text-sm hover:bg-accent/10 transition-colors">
+                      Portfolio Services
+                    </Link>
+                    <Link to="/agencies/management" className="block px-4 py-2 text-sm hover:bg-accent/10 transition-colors">
+                      Agency Management
+                    </Link>
+                  </div>
+                </div>
+              </div>
+
+              <div className="relative group">
+                <Link to="/company/about" className="text-sm hover:text-accent transition-colors flex items-center gap-1">
+                  Company
+                </Link>
+                <div className="absolute top-full left-0 mt-2 w-48 glass rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                  <div className="py-2">
+                    <Link to="/company/about" className="block px-4 py-2 text-sm hover:bg-accent/10 transition-colors">
+                      About Us
+                    </Link>
+                    <Link to="/editorial" className="block px-4 py-2 text-sm hover:bg-accent/10 transition-colors">
+                      Editorial
+                    </Link>
+                  </div>
+                </div>
+              </div>
             </nav>
           </div>
 
@@ -61,20 +120,53 @@ export const Header = () => {
         </div>
 
         {isMenuOpen && (
-          <nav className="md:hidden pb-6 space-y-4 animate-slide-in-left">
-            <Link to="/models" className="block text-sm hover:text-accent transition-colors">
-              Models
-            </Link>
-            <Link to="/agencies" className="block text-sm hover:text-accent transition-colors">
+          <nav className="lg:hidden pb-6 space-y-2 animate-slide-in-left">
+            <div className="space-y-1">
+              <Link to="/models" className="block px-4 py-2 text-sm hover:bg-accent/10 rounded transition-colors font-semibold">
+                Discover Models
+              </Link>
+              <Link to="/models/new-faces" className="block px-6 py-2 text-sm hover:bg-accent/10 rounded transition-colors">
+                New Faces
+              </Link>
+              <Link to="/models/top-models" className="block px-6 py-2 text-sm hover:bg-accent/10 rounded transition-colors">
+                Top Models
+              </Link>
+            </div>
+            
+            <Link to="/agencies" className="block px-4 py-2 text-sm hover:bg-accent/10 rounded transition-colors font-semibold">
               Agencies
             </Link>
-            <Link to="/campaigns" className="block text-sm hover:text-accent transition-colors">
+            <Link to="/casting-calls" className="block px-4 py-2 text-sm hover:bg-accent/10 rounded transition-colors font-semibold">
+              Casting Calls
+            </Link>
+            <Link to="/campaigns" className="block px-4 py-2 text-sm hover:bg-accent/10 rounded transition-colors font-semibold">
               Campaigns
             </Link>
-            <Link to="/casting-calls" className="block text-sm hover:text-accent transition-colors">
-              Casting
-            </Link>
-            <div className="pt-4 space-y-2">
+            
+            <div className="space-y-1">
+              <Link to="/services/portfolio" className="block px-4 py-2 text-sm hover:bg-accent/10 rounded transition-colors font-semibold">
+                Services
+              </Link>
+              <Link to="/agencies/management" className="block px-6 py-2 text-sm hover:bg-accent/10 rounded transition-colors">
+                Agency Management
+              </Link>
+            </div>
+            
+            <div className="space-y-1">
+              <Link to="/company/about" className="block px-4 py-2 text-sm hover:bg-accent/10 rounded transition-colors font-semibold">
+                Company
+              </Link>
+              <Link to="/editorial" className="block px-6 py-2 text-sm hover:bg-accent/10 rounded transition-colors">
+                Editorial
+              </Link>
+            </div>
+
+            <div className="pt-4 space-y-2 border-t border-border/50 mt-4">
+              <Link to="/search" className="w-full block">
+                <Button variant="outline" className="w-full">
+                  Search
+                </Button>
+              </Link>
               <Link to="/auth" className="w-full block">
                 <Button variant="outline" className="w-full">
                   Sign In

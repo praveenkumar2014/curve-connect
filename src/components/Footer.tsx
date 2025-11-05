@@ -34,21 +34,47 @@ export const Footer = () => {
           </div>
 
           <div>
-            <h4 className="font-semibold mb-4">Platform</h4>
+            <h4 className="font-semibold mb-4">Discover</h4>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link to="/models" className="text-primary-foreground/70 hover:text-accent transition-colors">
-                  Discover Models
+                  All Models
+                </Link>
+              </li>
+              <li>
+                <Link to="/models/new-faces" className="text-primary-foreground/70 hover:text-accent transition-colors">
+                  New Faces
+                </Link>
+              </li>
+              <li>
+                <Link to="/models/top-models" className="text-primary-foreground/70 hover:text-accent transition-colors">
+                  Top Models
                 </Link>
               </li>
               <li>
                 <Link to="/agencies" className="text-primary-foreground/70 hover:text-accent transition-colors">
-                  Find Agencies
+                  Agencies
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-4">For Professionals</h4>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <Link to="/campaigns" className="text-primary-foreground/70 hover:text-accent transition-colors">
+                  Campaigns
                 </Link>
               </li>
               <li>
-                <Link to="/campaigns" className="text-primary-foreground/70 hover:text-accent transition-colors">
-                  For Brands
+                <Link to="/casting-calls" className="text-primary-foreground/70 hover:text-accent transition-colors">
+                  Casting Calls
+                </Link>
+              </li>
+              <li>
+                <Link to="/services/portfolio" className="text-primary-foreground/70 hover:text-accent transition-colors">
+                  Portfolio Services
                 </Link>
               </li>
               <li>

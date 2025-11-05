@@ -24,6 +24,10 @@ import CastingSubmit from "./pages/CastingSubmit";
 import ModelsFashion from "./pages/ModelsFashion";
 import ModelsCommercial from "./pages/ModelsCommercial";
 import ModelsEditorial from "./pages/ModelsEditorial";
+import ModelDetail from "./pages/ModelDetail";
+import AgencyDetail from "./pages/AgencyDetail";
+import NewFaces from "./pages/NewFaces";
+import TopModels from "./pages/TopModels";
 
 const queryClient = new QueryClient();
 
@@ -42,9 +46,12 @@ const App = () => (
             
             {/* Models */}
             <Route path="/models" element={<Models />} />
+            <Route path="/models/new-faces" element={<NewFaces />} />
+            <Route path="/models/top-models" element={<TopModels />} />
             <Route path="/models/fashion" element={<ModelsFashion />} />
             <Route path="/models/commercial" element={<ModelsCommercial />} />
             <Route path="/models/editorial" element={<ModelsEditorial />} />
+            <Route path="/models/:id" element={<ModelDetail />} />
             
             {/* Campaigns */}
             <Route path="/campaigns" element={<Campaigns />} />
@@ -55,6 +62,7 @@ const App = () => (
             
             {/* Agencies */}
             <Route path="/agencies" element={<Agencies />} />
+            <Route path="/agencies/:id" element={<AgencyDetail />} />
             <Route path="/agencies/management" element={<AgencyManagement />} />
             
             {/* Services */}
