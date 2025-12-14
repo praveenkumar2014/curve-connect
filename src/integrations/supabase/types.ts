@@ -18,7 +18,19 @@ export type Database = {
         Row: {
           agency_name: string
           created_at: string
+          description: string | null
           id: string
+          is_premium: boolean | null
+          location: string | null
+          logo_url: string | null
+          models_viewed_count: number | null
+          premium_expires_at: string | null
+          premium_plan: string | null
+          social_facebook: string | null
+          social_instagram: string | null
+          social_linkedin: string | null
+          social_twitter: string | null
+          social_youtube: string | null
           updated_at: string
           user_id: string
           verified: boolean | null
@@ -27,7 +39,19 @@ export type Database = {
         Insert: {
           agency_name: string
           created_at?: string
+          description?: string | null
           id?: string
+          is_premium?: boolean | null
+          location?: string | null
+          logo_url?: string | null
+          models_viewed_count?: number | null
+          premium_expires_at?: string | null
+          premium_plan?: string | null
+          social_facebook?: string | null
+          social_instagram?: string | null
+          social_linkedin?: string | null
+          social_twitter?: string | null
+          social_youtube?: string | null
           updated_at?: string
           user_id: string
           verified?: boolean | null
@@ -36,13 +60,61 @@ export type Database = {
         Update: {
           agency_name?: string
           created_at?: string
+          description?: string | null
           id?: string
+          is_premium?: boolean | null
+          location?: string | null
+          logo_url?: string | null
+          models_viewed_count?: number | null
+          premium_expires_at?: string | null
+          premium_plan?: string | null
+          social_facebook?: string | null
+          social_instagram?: string | null
+          social_linkedin?: string | null
+          social_twitter?: string | null
+          social_youtube?: string | null
           updated_at?: string
           user_id?: string
           verified?: boolean | null
           website?: string | null
         }
         Relationships: []
+      }
+      agency_model_views: {
+        Row: {
+          agency_id: string
+          id: string
+          model_id: string
+          viewed_at: string
+        }
+        Insert: {
+          agency_id: string
+          id?: string
+          model_id: string
+          viewed_at?: string
+        }
+        Update: {
+          agency_id?: string
+          id?: string
+          model_id?: string
+          viewed_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "agency_model_views_agency_id_fkey"
+            columns: ["agency_id"]
+            isOneToOne: false
+            referencedRelation: "agencies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "agency_model_views_model_id_fkey"
+            columns: ["model_id"]
+            isOneToOne: false
+            referencedRelation: "models"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       bookings: {
         Row: {
@@ -219,6 +291,76 @@ export type Database = {
           },
         ]
       }
+      contact_requests: {
+        Row: {
+          admin_notes: string | null
+          agency_id: string | null
+          created_at: string
+          email: string
+          id: string
+          message: string
+          model_id: string | null
+          name: string
+          phone: string | null
+          professional_id: string | null
+          request_type: string
+          status: string | null
+          updated_at: string
+        }
+        Insert: {
+          admin_notes?: string | null
+          agency_id?: string | null
+          created_at?: string
+          email: string
+          id?: string
+          message: string
+          model_id?: string | null
+          name: string
+          phone?: string | null
+          professional_id?: string | null
+          request_type: string
+          status?: string | null
+          updated_at?: string
+        }
+        Update: {
+          admin_notes?: string | null
+          agency_id?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          message?: string
+          model_id?: string | null
+          name?: string
+          phone?: string | null
+          professional_id?: string | null
+          request_type?: string
+          status?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "contact_requests_agency_id_fkey"
+            columns: ["agency_id"]
+            isOneToOne: false
+            referencedRelation: "agencies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "contact_requests_model_id_fkey"
+            columns: ["model_id"]
+            isOneToOne: false
+            referencedRelation: "models"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "contact_requests_professional_id_fkey"
+            columns: ["professional_id"]
+            isOneToOne: false
+            referencedRelation: "professionals"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       models: {
         Row: {
           category: string | null
@@ -229,6 +371,11 @@ export type Database = {
           measurements: string | null
           portfolio_url: string | null
           rating: number | null
+          social_facebook: string | null
+          social_instagram: string | null
+          social_linkedin: string | null
+          social_twitter: string | null
+          social_youtube: string | null
           updated_at: string
           user_id: string
           verified: boolean | null
@@ -242,6 +389,11 @@ export type Database = {
           measurements?: string | null
           portfolio_url?: string | null
           rating?: number | null
+          social_facebook?: string | null
+          social_instagram?: string | null
+          social_linkedin?: string | null
+          social_twitter?: string | null
+          social_youtube?: string | null
           updated_at?: string
           user_id: string
           verified?: boolean | null
@@ -255,6 +407,11 @@ export type Database = {
           measurements?: string | null
           portfolio_url?: string | null
           rating?: number | null
+          social_facebook?: string | null
+          social_instagram?: string | null
+          social_linkedin?: string | null
+          social_twitter?: string | null
+          social_youtube?: string | null
           updated_at?: string
           user_id?: string
           verified?: boolean | null
@@ -300,6 +457,54 @@ export type Database = {
         }
         Relationships: []
       }
+      payu_payments: {
+        Row: {
+          amount: number
+          created_at: string
+          email: string
+          firstname: string
+          hash: string | null
+          id: string
+          payu_response: Json | null
+          phone: string | null
+          product_info: string
+          status: string | null
+          txnid: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          email: string
+          firstname: string
+          hash?: string | null
+          id?: string
+          payu_response?: Json | null
+          phone?: string | null
+          product_info: string
+          status?: string | null
+          txnid: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          email?: string
+          firstname?: string
+          hash?: string | null
+          id?: string
+          payu_response?: Json | null
+          phone?: string | null
+          product_info?: string
+          status?: string | null
+          txnid?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       portfolio_images: {
         Row: {
           category: string | null
@@ -340,6 +545,78 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      professionals: {
+        Row: {
+          business_name: string
+          certifications: string[] | null
+          created_at: string
+          description: string | null
+          experience_years: number | null
+          hourly_rate: number | null
+          id: string
+          location: string | null
+          portfolio_images: string[] | null
+          professional_type: string
+          rating: number | null
+          services: string[] | null
+          social_facebook: string | null
+          social_instagram: string | null
+          social_linkedin: string | null
+          social_twitter: string | null
+          social_youtube: string | null
+          updated_at: string
+          user_id: string
+          verified: boolean | null
+          website: string | null
+        }
+        Insert: {
+          business_name: string
+          certifications?: string[] | null
+          created_at?: string
+          description?: string | null
+          experience_years?: number | null
+          hourly_rate?: number | null
+          id?: string
+          location?: string | null
+          portfolio_images?: string[] | null
+          professional_type: string
+          rating?: number | null
+          services?: string[] | null
+          social_facebook?: string | null
+          social_instagram?: string | null
+          social_linkedin?: string | null
+          social_twitter?: string | null
+          social_youtube?: string | null
+          updated_at?: string
+          user_id: string
+          verified?: boolean | null
+          website?: string | null
+        }
+        Update: {
+          business_name?: string
+          certifications?: string[] | null
+          created_at?: string
+          description?: string | null
+          experience_years?: number | null
+          hourly_rate?: number | null
+          id?: string
+          location?: string | null
+          portfolio_images?: string[] | null
+          professional_type?: string
+          rating?: number | null
+          services?: string[] | null
+          social_facebook?: string | null
+          social_instagram?: string | null
+          social_linkedin?: string | null
+          social_twitter?: string | null
+          social_youtube?: string | null
+          updated_at?: string
+          user_id?: string
+          verified?: boolean | null
+          website?: string | null
+        }
+        Relationships: []
       }
       profiles: {
         Row: {
@@ -433,7 +710,16 @@ export type Database = {
       }
     }
     Enums: {
-      app_role: "admin" | "model" | "agency" | "brand"
+      app_role:
+        | "admin"
+        | "model"
+        | "agency"
+        | "brand"
+        | "bridal"
+        | "makeup_artist"
+        | "trainer"
+        | "fitness_trainer"
+        | "ngo"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -561,7 +847,17 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      app_role: ["admin", "model", "agency", "brand"],
+      app_role: [
+        "admin",
+        "model",
+        "agency",
+        "brand",
+        "bridal",
+        "makeup_artist",
+        "trainer",
+        "fitness_trainer",
+        "ngo",
+      ],
     },
   },
 } as const
