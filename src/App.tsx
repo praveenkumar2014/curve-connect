@@ -28,6 +28,12 @@ import ModelDetail from "./pages/ModelDetail";
 import AgencyDetail from "./pages/AgencyDetail";
 import NewFaces from "./pages/NewFaces";
 import TopModels from "./pages/TopModels";
+import Bridal from "./pages/Bridal";
+import MakeupArtists from "./pages/MakeupArtists";
+import Trainers from "./pages/Trainers";
+import FitnessTrainers from "./pages/FitnessTrainers";
+import NGO from "./pages/NGO";
+import Contact from "./pages/Contact";
 
 const queryClient = new QueryClient();
 
@@ -78,6 +84,14 @@ const App = () => (
             
             {/* Search */}
             <Route path="/search" element={<Search />} />
+            
+            {/* Professionals */}
+            <Route path="/bridal" element={<Bridal />} />
+            <Route path="/makeup-artists" element={<MakeupArtists />} />
+            <Route path="/trainers" element={<Trainers />} />
+            <Route path="/fitness" element={<FitnessTrainers />} />
+            <Route path="/ngo" element={<NGO />} />
+            <Route path="/contact" element={<Contact />} />
             
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
