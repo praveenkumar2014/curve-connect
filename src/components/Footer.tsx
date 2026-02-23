@@ -1,140 +1,84 @@
-import { Instagram, Linkedin, Twitter } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Instagram, Linkedin, Twitter, Youtube, Facebook, Mail, MapPin, Phone } from "lucide-react";
+import logo from "@/assets/logo.png";
 
 export const Footer = () => {
+  const links = {
+    discover: [
+      { label: "All Models", href: "/models" },
+      { label: "New Faces", href: "/models/new-faces" },
+      { label: "Top Models", href: "/models/top-models" },
+      { label: "Agencies", href: "/agencies" },
+      { label: "Casting Calls", href: "/casting-calls" },
+    ],
+    platform: [
+      { label: "Projects", href: "/projects" },
+      { label: "Analytics", href: "/analytics" },
+      { label: "Pricing", href: "/pricing" },
+      { label: "Blog", href: "/blog" },
+      { label: "Documentation", href: "/docs" },
+    ],
+    services: [
+      { label: "Bridal", href: "/bridal" },
+      { label: "Makeup Artists", href: "/makeup-artists" },
+      { label: "Trainers", href: "/trainers" },
+      { label: "Fitness", href: "/fitness" },
+      { label: "NGO Initiatives", href: "/ngo" },
+    ],
+    company: [
+      { label: "About Us", href: "/company/about" },
+      { label: "Contact", href: "/contact" },
+      { label: "Privacy Policy", href: "/legal/privacy" },
+      { label: "Terms of Service", href: "/legal/terms" },
+      { label: "Settings", href: "/settings" },
+    ],
+  };
+
   return (
-    <footer className="bg-primary text-primary-foreground py-16">
-      <div className="container px-6 lg:px-12">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-          <div>
-            <h3 className="text-2xl font-bold mb-4 font-display">GSMODELING</h3>
-            <p className="text-sm text-primary-foreground/70 mb-6">
-              The next-generation AI-powered modeling and talent discovery platform
+    <footer className="border-t border-border bg-card">
+      <div className="container px-6 lg:px-12 py-16">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
+          <div className="col-span-2 md:col-span-1">
+            <Link to="/" className="flex items-center gap-2 mb-4">
+              <img src={logo} alt="GSMODELING" className="h-8 w-8" />
+              <span className="text-lg font-bold font-display">GSMODELING</span>
+            </Link>
+            <p className="text-sm text-muted-foreground mb-4">
+              India's premier AI-powered modeling and talent discovery platform
             </p>
-            <div className="flex gap-4">
-              <a
-                href="#"
-                className="h-10 w-10 rounded-full bg-primary-foreground/10 hover:bg-accent flex items-center justify-center transition-colors"
-              >
-                <Instagram className="h-5 w-5" />
-              </a>
-              <a
-                href="#"
-                className="h-10 w-10 rounded-full bg-primary-foreground/10 hover:bg-accent flex items-center justify-center transition-colors"
-              >
-                <Twitter className="h-5 w-5" />
-              </a>
-              <a
-                href="#"
-                className="h-10 w-10 rounded-full bg-primary-foreground/10 hover:bg-accent flex items-center justify-center transition-colors"
-              >
-                <Linkedin className="h-5 w-5" />
-              </a>
+            <div className="flex gap-2">
+              {[Instagram, Twitter, Linkedin, Youtube, Facebook].map((Icon, i) => (
+                <a key={i} href="#" className="h-9 w-9 rounded-lg bg-muted hover:gradient-bg hover:text-white flex items-center justify-center transition-all">
+                  <Icon className="h-4 w-4" />
+                </a>
+              ))}
             </div>
           </div>
 
-          <div>
-            <h4 className="font-semibold mb-4">Discover</h4>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <Link to="/models" className="text-primary-foreground/70 hover:text-accent transition-colors">
-                  All Models
-                </Link>
-              </li>
-              <li>
-                <Link to="/models/new-faces" className="text-primary-foreground/70 hover:text-accent transition-colors">
-                  New Faces
-                </Link>
-              </li>
-              <li>
-                <Link to="/models/top-models" className="text-primary-foreground/70 hover:text-accent transition-colors">
-                  Top Models
-                </Link>
-              </li>
-              <li>
-                <Link to="/agencies" className="text-primary-foreground/70 hover:text-accent transition-colors">
-                  Agencies
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="font-semibold mb-4">For Professionals</h4>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <Link to="/campaigns" className="text-primary-foreground/70 hover:text-accent transition-colors">
-                  Campaigns
-                </Link>
-              </li>
-              <li>
-                <Link to="/casting-calls" className="text-primary-foreground/70 hover:text-accent transition-colors">
-                  Casting Calls
-                </Link>
-              </li>
-              <li>
-                <Link to="/services/portfolio" className="text-primary-foreground/70 hover:text-accent transition-colors">
-                  Portfolio Services
-                </Link>
-              </li>
-              <li>
-                <Link to="/payment" className="text-primary-foreground/70 hover:text-accent transition-colors">
-                  Pricing
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="font-semibold mb-4">Company</h4>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <Link to="/company/about" className="text-primary-foreground/70 hover:text-accent transition-colors">
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link to="/editorial" className="text-primary-foreground/70 hover:text-accent transition-colors">
-                  Editorial
-                </Link>
-              </li>
-              <li>
-                <Link to="/services/portfolio" className="text-primary-foreground/70 hover:text-accent transition-colors">
-                  Portfolio Services
-                </Link>
-              </li>
-              <li>
-                <Link to="/search" className="text-primary-foreground/70 hover:text-accent transition-colors">
-                  Search
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="font-semibold mb-4">Legal</h4>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <Link to="/legal/privacy" className="text-primary-foreground/70 hover:text-accent transition-colors">
-                  Privacy Policy
-                </Link>
-              </li>
-              <li>
-                <Link to="/legal/terms" className="text-primary-foreground/70 hover:text-accent transition-colors">
-                  Terms of Service
-                </Link>
-              </li>
-              <li>
-                <Link to="/casting-calls" className="text-primary-foreground/70 hover:text-accent transition-colors">
-                  Casting Calls
-                </Link>
-              </li>
-            </ul>
-          </div>
+          {Object.entries(links).map(([title, items]) => (
+            <div key={title}>
+              <h4 className="font-semibold text-sm mb-4 capitalize">{title}</h4>
+              <ul className="space-y-2">
+                {items.map((item) => (
+                  <li key={item.href}>
+                    <Link to={item.href} className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
 
-        <div className="pt-8 border-t border-primary-foreground/10 text-center text-sm text-primary-foreground/60">
-          <p>© 2025 GSMODELING. All rights reserved. Crafted with excellence by Praveen Kumar.</p>
+        <div className="pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-sm text-muted-foreground">
+            © 2026 GSMODELING. All rights reserved. Built by Praveen Kumar.
+          </p>
+          <div className="flex items-center gap-6 text-sm text-muted-foreground">
+            <span className="flex items-center gap-1"><Mail className="h-3.5 w-3.5" /> hello@gsmodeling.com</span>
+            <span className="flex items-center gap-1"><MapPin className="h-3.5 w-3.5" /> Mumbai, India</span>
+          </div>
         </div>
       </div>
     </footer>
