@@ -14,7 +14,7 @@ export default {
     },
     extend: {
       fontFamily: {
-        'display': ['"Momo Trust Display"', '"Playfair Display"', 'serif'],
+        'display': ['Sora', 'Inter', 'system-ui', 'sans-serif'],
         'sans': ['Inter', 'system-ui', 'sans-serif'],
       },
       colors: {
