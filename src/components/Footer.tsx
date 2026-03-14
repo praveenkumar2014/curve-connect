@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Instagram, Linkedin, Twitter, Youtube, Facebook, Mail, MapPin, Phone } from "lucide-react";
+import { Instagram, Linkedin, Twitter, Youtube, Facebook, Mail, MapPin } from "lucide-react";
 import logo from "@/assets/logo.png";
 
 export const Footer = () => {
@@ -48,7 +48,7 @@ export const Footer = () => {
             </p>
             <div className="flex gap-2">
               {[Instagram, Twitter, Linkedin, Youtube, Facebook].map((Icon, i) => (
-                <a key={i} href="#" className="h-9 w-9 rounded-lg bg-muted hover:gradient-bg hover:text-white flex items-center justify-center transition-all">
+                <a key={i} href="#" className="h-9 w-9 rounded-lg bg-muted hover:bg-primary hover:text-primary-foreground flex items-center justify-center transition-all">
                   <Icon className="h-4 w-4" />
                 </a>
               ))}
@@ -73,12 +73,26 @@ export const Footer = () => {
 
         <div className="pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm text-muted-foreground">
-            © 2026 GSMODELING. All rights reserved. Built by Praveen Kumar.
+            © {new Date().getFullYear()} GSMODELING. All rights reserved.
           </p>
           <div className="flex items-center gap-6 text-sm text-muted-foreground">
             <span className="flex items-center gap-1"><Mail className="h-3.5 w-3.5" /> hello@gsmodeling.com</span>
             <span className="flex items-center gap-1"><MapPin className="h-3.5 w-3.5" /> Mumbai, India</span>
           </div>
+        </div>
+        
+        <div className="mt-6 text-center">
+          <p className="text-xs text-muted-foreground">
+            Designed and Developed by{" "}
+            <a 
+              href="https://www.guideitsol.com" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="text-primary hover:underline font-medium"
+            >
+              GUIDESOFT
+            </a>
+          </p>
         </div>
       </div>
     </footer>

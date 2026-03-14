@@ -1,45 +1,55 @@
+import { useState, useEffect } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { SEOHead } from "@/components/SEOHead";
+import { ModelCard } from "@/components/ModelCard";
+import { supabase } from "@/integrations/supabase/client";
+import { Skeleton } from "@/components/ui/skeleton";
+import { motion } from "framer-motion";
 
 const ModelsFashion = () => {
-  const models = Array.from({ length: 6 }, (_, i) => ({
-    id: i + 1,
-    name: `Fashion Model ${i + 1}`,
-    location: "Mumbai, India",
-    height: "5'9\"",
-    category: "Fashion"
-  }));
+  const [models, setModels] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetch = async () => {
+      const { data } = await supabase
+        .from("public_model_profiles")
+        .select("*")
+        .eq("category", "fashion")
+        .order("rating", { ascending: false });
+      setModels(data || []);
+      setLoading(false);
+    };
+    fetch();
+  }, []);
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead title="Fashion Models" description="Discover high-fashion and runway models for your next campaign" />
       <Header />
-      <main className="pt-32 pb-20">
+      <main className="pt-28 pb-20">
         <div className="container mx-auto px-6 lg:px-12">
-          <h1 className="text-5xl font-bold text-center mb-4">Fashion Models</h1>
-          <p className="text-center text-muted-foreground mb-12">
-            Discover high-fashion and runway talent
-          </p>
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-12">
+            <h1 className="text-5xl font-bold font-display mb-4">Fashion Models</h1>
+            <p className="text-muted-foreground text-lg">High-fashion and runway talent for premium campaigns</p>
+          </motion.div>
 
-          <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {models.map((model) => (
-              <Card key={model.id} className="overflow-hidden group cursor-pointer">
-                <div className="aspect-[3/4] bg-muted"></div>
-                <div className="p-4">
-                  <h3 className="font-bold mb-1">{model.name}</h3>
-                  <p className="text-sm text-muted-foreground mb-2">{model.location}</p>
-                  <div className="flex justify-between text-xs text-muted-foreground">
-                    <span>{model.height}</span>
-                    <span>{model.category}</span>
-                  </div>
-                  <Button variant="outline" size="sm" className="w-full mt-3">
-                    View Profile
-                  </Button>
-                </div>
-              </Card>
-            ))}
-          </div>
+          {loading ? (
+            <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {[...Array(8)].map((_, i) => <Skeleton key={i} className="aspect-[3/4] rounded-xl" />)}
+            </div>
+          ) : models.length > 0 ? (
+            <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {models.map((m) => (
+                <ModelCard key={m.id} id={m.id} name={m.full_name} category="Fashion" location={m.location} height={m.height} rating={m.rating} imageUrl={m.avatar_url} verified={m.verified} />
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-20">
+              <p className="text-muted-foreground text-lg">No fashion models available yet. Check back soon!</p>
+            </div>
+          )}
         </div>
       </main>
       <Footer />
